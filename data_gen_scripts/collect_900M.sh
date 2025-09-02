@@ -6,7 +6,7 @@ LOOP_COUNT=${4}
 for j in $(seq ${START_SEED} $(( ${START_SEED} + ${SEED_PER_PROCESS} - 1 ))); do
     (
         for i in $(seq -w $(( j * ${LOOP_COUNT} )) $(( (j + 1) * ${LOOP_COUNT} - 1 ))); do
-            python generate_manipspace.py --seed=$i --env_name=${ENV_NAME} --save_path=/mnt/changyeon/corl2025/ogbench/${ENV_NAME}-play-1B-v0/${ENV_NAME}-play-v0-$i.npz --num_episodes=1000 --max_episode_steps=1001 --dataset_type=play;
+            MUJOCO_GL=egl MUJOCO_EGL_DEVICE_ID=0 CUDA_VISIBLE_DEVICES=0 python generate_manipspace.py --seed=$i --env_name=${ENV_NAME} --save_path=/mnt/changyeon/corl2025/ogbench/${ENV_NAME}-play-1B-v0/${ENV_NAME}-play-v0-$i.npz --num_episodes=1000 --max_episode_steps=1001 --dataset_type=play;
         done
     ) &
 done
